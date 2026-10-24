@@ -1,6 +1,12 @@
 {
 	"start": [
 		{
+			"node": "sees_stain",
+			"requires_corruption": 1,
+			"requires_flag": "met_zora",
+			"requires_not_flag": "zora_saw_stain"
+		},
+		{
 			"node": "taught",
 			"requires_flag": "zora_taught"
 		},
@@ -210,6 +216,29 @@
 				},
 				{
 					"text": "Goodbye.",
+					"next": "end"
+				}
+			]
+		},
+		"sees_stain": {
+			"text": "She takes your wrist before you can stop her and turns it to the firelight. \"Drawn. Not much, yet.\" She lets go. \"It'll make your spells sing and your cuts slow to close, and it wants more of itself. The shrine on the north road can take it back out of you, a night at a time, if anyone's lit it.\"",
+			"set_flag": "zora_saw_stain",
+			"choices": [
+				{
+					"text": "How do you know?",
+					"next": "sees_stain_how"
+				},
+				{
+					"text": "(Leave)",
+					"next": "end"
+				}
+			]
+		},
+		"sees_stain_how": {
+			"text": "Because I was offered it, thirty years ago, in a quiet room at the Collegium. I said no. Some of the people in that room didn't.",
+			"choices": [
+				{
+					"text": "(Leave)",
 					"next": "end"
 				}
 			]

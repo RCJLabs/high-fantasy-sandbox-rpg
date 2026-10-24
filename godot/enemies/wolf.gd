@@ -48,6 +48,8 @@ var _fur: StandardMaterial3D
 var _flank_angle := 0.0     # where around the player this wolf is heading
 var _close_in := false      # within 4 m and circling in on its flank spot
 var _blocked_time := 0.0    # how long a packmate has been in the way
+var _sidestep := Vector3.ZERO   # stepping sideways off a packmate that's in the way
+var _sidestep_left := 0.0
 var _windup_left := 0.0     # > 0 while a bite is coming
 var _stagger_left := 0.0
 var _eyes: StandardMaterial3D
@@ -169,32 +171,54 @@ func join_hunt() -> void:
 # Up close, head for a spot beside the player rather than the player's exact
 # position, so a pack spreads around you instead of queueing up. Each wolf
 # starts from the side it's already on, and circles further round if a
-# packmate is in its way.
+# packmate is in its way: it steps sideways off the packmate first, since
+# the straight line to its new spot often still runs through it.
 func _close_in_on(player: Node3D, delta: float) -> void:
 	var from_player := global_position - player.global_position
 	if not _close_in:
 		_close_in = true
 		_flank_angle = atan2(from_player.z, from_player.x) + randf_range(-0.5, 0.5)
 		_blocked_time = 0.0
-	if _blocked_by_packmate():
+		_sidestep_left = 0.0
+	if _sidestep_left > 0.0:
+		_sidestep_left -= delta
+		_move_toward(global_position + _sidestep, run_speed * 0.6, delta)
+		return
+	var blocker := _blocking_packmate()
+	if blocker:
 		_blocked_time += delta
 		if _blocked_time > 0.5:
 			_blocked_time = 0.0
 			_flank_angle += deg_to_rad(70.0)
+			var spot := player.global_position + Vector3(cos(_flank_angle), 0.0, sin(_flank_angle))
+			_sidestep = _sidestep_toward(spot - global_position, blocker.global_position - global_position)
+			_sidestep_left = 0.4
 	else:
 		_blocked_time = 0.0
 	var side := Vector3(cos(_flank_angle), 0.0, sin(_flank_angle))
 	_move_toward(player.global_position + side, run_speed, delta)
 
 
-func _blocked_by_packmate() -> bool:
+# Sideways to `blocker`, on the side that leads towards `want`.
+func _sidestep_toward(want: Vector3, blocker: Vector3) -> Vector3:
+	blocker.y = 0.0
+	want.y = 0.0
+	var away := blocker.normalized()
+	var across := want - away * want.dot(away)
+	if across.length() < 0.1:
+		across = away.cross(Vector3.UP)
+	return across.normalized()
+
+
+# The packmate this wolf has been pushing against, if it's stuck on one.
+func _blocking_packmate() -> Node3D:
 	if Vector2(get_real_velocity().x, get_real_velocity().z).length() > 1.0:
-		return false   # still making progress
+		return null   # still making progress
 	for i in get_slide_collision_count():
 		var other := get_slide_collision(i).get_collider()
 		if other != self and other is CharacterBody3D and other.has_signal("died"):
-			return true
-	return false
+			return other
+	return null
 
 
 # The telegraph: crouch back, eyes flare.

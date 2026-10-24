@@ -16,9 +16,10 @@ extends Node
 
 const SAVE_DIR := "user://saves/"
 const OLD_SAVE_PATH := "user://savegame.json"   # before slots existed
-const SAVE_VERSION := 10  # 2: skills, 3: inventory, 4: spells, 5: reputation, 6: slots + play time,
+const SAVE_VERSION := 11  # 2: skills, 3: inventory, 4: spells, 5: reputation, 6: slots + play time,
                           # 7: attributes, equipment, status effects, 8: character (background, traits, perks, modes),
-                          # 9: world clock and survival needs, 10: the main questline (see _migrate_story)
+                          # 9: world clock and survival needs, 10: the main questline (see _migrate_story),
+                          # 11: corruption
 const QUICKSAVE := "quicksave"
 const AUTOSAVE := "autosave"
 const MANUAL_SLOTS := ["slot_1", "slot_2", "slot_3", "slot_4", "slot_5"]
@@ -127,6 +128,7 @@ func save_game(slot: String = QUICKSAVE, resting: bool = false) -> bool:
 		"world": WorldState.to_dict(),
 		"clock": WorldClock.to_dict(),
 		"survival": Survival.to_dict(),
+		"corruption": Corruption.to_dict(),
 		"player": player.get_save_data(),
 	}
 	var file := FileAccess.open(_path(slot), FileAccess.WRITE)
@@ -193,6 +195,9 @@ func load_game(slot: String = "") -> bool:
 	WorldState.from_dict(data.get("world", {}))   # versions 1-6: nothing remembered yet
 	WorldClock.from_dict(data.get("clock", {}))   # versions 1-8: morning of day 1
 	Survival.from_dict(data.get("survival", {}))  # versions 1-8: no needs yet
+	Corruption.from_dict(data.get("corruption", {}))   # versions 1-10: none
+	if not data.has("corruption") and GameState.has_flag("took_wisp_essence"):
+		Corruption.value = 35.0   # took the caged wisp's light before corruption existed
 	QuestLog.silent = false
 	QuestLog.reset_baseline()
 	_pending_player_state = data["player"]

@@ -365,6 +365,13 @@
 		"outcomes": [
 			{
 				"when": {
+					"requires_flag": "demo_finished",
+					"requires_corruption": 3
+				},
+				"text": "I killed the first thing they made, at the Hollow Oak, and it knew me: \"you smell like us\". The letter on the altar names the Pale Gate. The light I took is still in me, and it pulls north too. The people I told kept their distance."
+			},
+			{
+				"when": {
 					"requires_flag": "told_maren_end"
 				},
 				"text": "I killed the first thing they made, at the Hollow Oak. Its stolen light streamed away north. The letter on the altar names the Pale Gate, and its map marks a dozen places across Vaelora. Maren says: eat, sleep, and go and find the second one."

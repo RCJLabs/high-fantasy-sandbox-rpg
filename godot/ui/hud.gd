@@ -25,6 +25,7 @@ var _boss_stats: Stats
 var _boss_bar: ProgressBar
 
 var compass: Compass
+var corruption_label: Label   # "Corruption: Stained", above the effects row; hidden at none
 
 
 func _ready() -> void:
@@ -32,6 +33,19 @@ func _ready() -> void:
 	add_child(compass)
 	get_viewport().size_changed.connect(_fit_bars)
 	_fit_bars()
+	corruption_label = Label.new()
+	corruption_label.label_settings = prompt_label.label_settings.duplicate()
+	corruption_label.label_settings.font_size = 16
+	corruption_label.label_settings.font_color = Color(0.65, 0.95, 0.75)
+	corruption_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	corruption_label.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	corruption_label.offset_left = -160.0
+	corruption_label.offset_right = 160.0
+	corruption_label.offset_top = -90.0
+	corruption_label.offset_bottom = -68.0
+	$Bars.add_child(corruption_label)
+	Corruption.changed.connect(_refresh_corruption)
+	_refresh_corruption()
 
 
 ## The bar row is 940 px wide; on a narrow screen (or a big Interface size) shrink it
@@ -60,6 +74,11 @@ func _process(delta: float) -> void:
 		enemy_bar.visible = _enemy_bar_time_left > 0.0
 	if _boss_bar and _boss_bar.visible and is_instance_valid(_boss_stats):
 		_boss_bar.value = _boss_stats.health
+
+
+func _refresh_corruption() -> void:
+	var tier_name := Corruption.tier_name()
+	corruption_label.text = "Corruption: %s" % tier_name if tier_name != "" else ""
 
 
 ## Connects the bars to a Stats node so they update by themselves.

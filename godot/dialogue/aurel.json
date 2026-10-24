@@ -1,6 +1,11 @@
 {
 	"start": [
 		{
+			"node": "sees_stain",
+			"requires_corruption": 2,
+			"requires_not_flag": "aurel_saw_stain"
+		},
+		{
 			"node": "done",
 			"requires_flag": "readings_delivered"
 		},
@@ -136,6 +141,16 @@
 		},
 		"done": {
 			"text": "I've written to three people at the Collegium. Two haven't answered. Interesting, isn't it?",
+			"choices": [
+				{
+					"text": "(Leave)",
+					"next": "end"
+				}
+			]
+		},
+		"sees_stain": {
+			"text": "Aurel looks at you over his spectacles for slightly too long. \"Your pupils don't shrink in the lamplight. The Collegium has a word for that, and it isn't a polite one.\" He writes something down. \"Whatever you've been drinking, stop. And don't tell anyone in a robe.\"",
+			"set_flag": "aurel_saw_stain",
 			"choices": [
 				{
 					"text": "(Leave)",

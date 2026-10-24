@@ -35,7 +35,7 @@ func _physics_process(_d: float) -> bool:
 		0:
 			wait = 5
 		1:
-			ok(S.SAVE_VERSION == 10, "save version 10")
+			ok(S.SAVE_VERSION >= 10, "save version 10 or later")
 			# An old character who finished The Waking Stones before the main story existed.
 			for flag in ["met_brannoc", "touched_crystal", "stones_quest_started", "shards_decided", "shards_given", "stones_quest_done"]:
 				GS.set_flag(flag)

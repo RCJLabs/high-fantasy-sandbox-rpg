@@ -30,6 +30,10 @@ noticed, and send it back. Short answers are fine ("too easy", "parry window fee
 - [ ] Main quest 4, **The Barrow**: after the Guardian, can you find the way on from the vault
       without help (look at the floor)? Free the wisp or take its essence: does either feel
       like a real choice?
+- [ ] **Corruption**: take the caged wisp's light, or swallow a few Wisp Essences (each says
+      "Corruption +10"). Do you notice the HUD line and the messages? Is the trade (stronger
+      spells, slower healing) worth taking? Once the shrine is rekindled, keep a vigil there at
+      night: is one tier a night too slow? At Hollowing, the ending changes.
 - [ ] Side quests (pick one or two): **Silent Shrine** (the roadside shrine south of spawn),
       **The Lost Wagon** (a yellow wagon north-east of the bandit camp), **Licence to Burn**
       (ask Brannoc for work), **Readings Under the Wanderer** (Magister Aurel at the

@@ -30,6 +30,13 @@ func _physics_process(_d: float) -> bool:
 		return false
 	f += 1
 	var p = player()
+	if f > 305 and f < 600:
+		# Keep the stream on the wolf, as a player would: once it's hurt it closes in
+		# and circles to a random flank spot, which can be outside a fixed aim.
+		var w = current_scene.get_node("GreyfangPack/Wolf1")
+		var d: Vector3 = w.global_position - p.global_position
+		p.rotation.y = atan2(-d.x, -d.z)
+		p.get_node("Head").rotation.x = atan2(w.global_position.y + 0.4 - (p.global_position.y + 1.6), Vector2(d.x, d.z).length())
 	match f:
 		30:
 			p.stats.take_damage(50); h0 = p.stats.health; m0 = p.stats.magicka

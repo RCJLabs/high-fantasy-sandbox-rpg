@@ -1,6 +1,18 @@
 {
 	"start": [
 		{
+			"node": "end_hollow",
+			"requires_corruption": 3,
+			"requires_flag": "read_letter",
+			"requires_not_flag": "demo_finished"
+		},
+		{
+			"node": "sees_hollowing",
+			"requires_corruption": 3,
+			"requires_flag": "met_mirela",
+			"requires_not_flag": "mirela_saw_hollowing"
+		},
+		{
 			"node": "end_intro",
 			"requires_flag": "read_letter",
 			"requires_not_flag": "demo_finished"
@@ -404,6 +416,29 @@
 		},
 		"end_mirela_cold": {
 			"text": "What we always do: watch the roads. And watch you. You did what they do, once. Don't make it twice.",
+			"set_flag": [
+				"told_mirela_end",
+				"demo_finished"
+			],
+			"choices": [
+				{
+					"text": "(Leave)",
+					"next": "end"
+				}
+			]
+		},
+		"sees_hollowing": {
+			"text": "Ostap has an arrow on the string before you reach the fire. Mirela doesn't stand. \"Grey fingertips,\" she says. \"Dunya's went that colour, after.\" Nobody else at the fire looks at you. \"Say what you came to say. Then go.\"",
+			"set_flag": "mirela_saw_hollowing",
+			"choices": [
+				{
+					"text": "(Leave)",
+					"next": "end"
+				}
+			]
+		},
+		"end_hollow": {
+			"text": "She reads the letter standing up, at arm's length from you. Twelve marks. She folds it and holds it out without coming closer. \"You killed their creature. Good. You also carry what they carry. I don't know what you are now, and neither do you. Take your map north if you want. Don't bring it back to this fire.\"",
 			"set_flag": [
 				"told_mirela_end",
 				"demo_finished"

@@ -18,8 +18,9 @@ func wall(wall_name: String, pos: Vector3, size: Vector3) -> void:
 func wolves() -> Array: return level.get_node("GreyfangPack").get_children()
 
 func states() -> Array: return wolves().map(func(w): return w.State.keys()[w.state])
-# For failure messages: where each wolf is and how far from the player (these checks
-# failed once in a full parallel run and haven't reproduced with 12 seeds or under load).
+# For failure messages: where each wolf is and how far from the player. (These checks
+# used to fail about 1 run in 8 under load: a wolf queued behind the one biting and
+# never got round it. Fixed in wolf.gd by sidestepping off a blocking packmate.)
 func detail() -> Array:
 	var player = level.get_node("Player")
 	return wolves().map(func(w): return "%s %s at (%.1f, %.1f), %.1f m" % [w.name, w.State.keys()[w.state],

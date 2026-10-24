@@ -128,6 +128,8 @@ func use(id: String) -> bool:
 	Survival.ease(item)
 	if item.side_effect != "" and randf() < item.side_effect_chance:
 		player.effects.apply(item.side_effect)
+	if item.corruption > 0.0:
+		Corruption.add(item.corruption, item.display_name)
 	stats.heal(item.restore_health)
 	stats.stamina = minf(stats.stamina + item.restore_stamina, stats.max_stamina)
 	stats.magicka = minf(stats.magicka + item.restore_magicka, stats.max_magicka)

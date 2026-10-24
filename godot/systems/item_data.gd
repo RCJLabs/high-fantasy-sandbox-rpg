@@ -32,6 +32,8 @@ enum WeaponKind { MELEE, BOW }
 ## A status effect it might give you (raw meat: "poisoned"), and the chance (0-1).
 @export var side_effect: String = ""
 @export var side_effect_chance: float = 0.0
+## Corruption it adds when used (Wisp Essence: drawing on a living thing's light).
+@export var corruption: float = 0.0
 ## Spell tomes: the spell id it teaches (the tome is used up).
 @export var teaches_spell: String = ""
 

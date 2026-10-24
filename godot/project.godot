@@ -37,6 +37,7 @@ RestMenu="*res://ui/rest_menu.gd"
 Defeat="*res://systems/defeat.gd"
 Openings="*res://systems/openings.gd"
 Epilogue="*res://systems/epilogue.gd"
+Corruption="*res://systems/corruption.gd"
 
 [editor_plugins]
 

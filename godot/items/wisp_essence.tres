@@ -6,8 +6,9 @@
 script = ExtResource("1_item")
 id = "wisp_essence"
 display_name = "Wisp Essence"
-description = "A mote of cold light that won't stop glowing. Swallowed, it fills you with Magicka; scholars would pay for it."
+description = "A mote of cold light that won't stop glowing: what's left of a wisp. Swallowed, it fills you with Magicka, and something of the wisp stays in you (Corruption +10). Scholars would pay for it, and a shrine would take it as an offering."
 type = 1
 value = 20
 weight = 0.1
 restore_magicka = 40.0
+corruption = 10.0

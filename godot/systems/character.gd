@@ -82,6 +82,7 @@ func create(race: RaceData, new_name: String, background_id: String, trait_ids: 
 	WorldState.reset()
 	WorldClock.reset()
 	Survival.reset()
+	Corruption.reset()
 
 	player_name = new_name.strip_edges() if new_name.strip_edges() != "" else "Traveller"
 	background = background_id
@@ -168,7 +169,7 @@ func modifier(key: String) -> float:
 		result *= float(perk_list[id].get("modifiers", {}).get(key, 1.0))
 	if modes["hardcore"]:
 		result *= float(HARDCORE_MODIFIERS.get(key, 1.0))
-	return result
+	return result * Corruption.modifier(key)
 
 
 ## Flat bonus to "health" / "stamina" / "magicka" maximums from perks and traits.
@@ -178,7 +179,7 @@ func stat_bonus(stat: String) -> float:
 		total += float(perk_list[id].get("stat_bonus", {}).get(stat, 0.0))
 	for id in traits:
 		total += float(trait_list[id].get("stat_bonus", {}).get(stat, 0.0))
-	return total
+	return total + Corruption.stat_bonus(stat)
 
 
 # --- active powers (Z = race, X = background) ------------------------------------------

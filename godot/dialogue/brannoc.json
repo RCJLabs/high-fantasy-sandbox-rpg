@@ -1,6 +1,12 @@
 {
 	"start": [
 		{
+			"node": "end_hollow",
+			"requires_corruption": 3,
+			"requires_flag": "read_letter",
+			"requires_not_flag": "demo_finished"
+		},
+		{
 			"node": "end_intro",
 			"requires_flag": "read_letter",
 			"requires_not_flag": "demo_finished"
@@ -915,6 +921,19 @@
 		"zora_gone": {
 			"text": "Gone. Convenient. ...I'll write \"gone\" in the report, then. No fifty for \"gone\", mind.",
 			"set_flag": "brannoc_told_zora",
+			"choices": [
+				{
+					"text": "(Leave)",
+					"next": "end"
+				}
+			]
+		},
+		"end_hollow": {
+			"text": "He takes a step back before he means to. \"Your eyes. In this light they look like that crystal's.\" He reads the letter anyway, lips moving. \"The Pale Gate.\" He folds it into his coat. \"I'll take this to the captain. I won't tell her about you. Not yet. Don't make me.\"",
+			"set_flag": [
+				"told_brannoc_end",
+				"demo_finished"
+			],
 			"choices": [
 				{
 					"text": "(Leave)",

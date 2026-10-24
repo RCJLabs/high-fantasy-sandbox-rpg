@@ -13,6 +13,8 @@ class_name Conditions
 #   "requires_gold": 50
 #   "requires_reputation": {"riverwatch": 10}        at least this much
 #   "requires_reputation_below": {"riverwatch": 0}   less than this
+#   "requires_corruption": 2          corruption tier at least this (1 Touched, 2 Stained, 3 Hollowing)
+#   "requires_corruption_below": 2    corruption tier lower than this
 # An empty Dictionary always passes.
 
 
@@ -44,6 +46,10 @@ static func met(entry: Dictionary) -> bool:
 	for faction in entry.get("requires_reputation_below", {}):
 		if Reputation.value(faction) >= int(entry["requires_reputation_below"][faction]):
 			return false
+	if entry.has("requires_corruption") and Corruption.tier() < int(entry["requires_corruption"]):
+		return false
+	if entry.has("requires_corruption_below") and Corruption.tier() >= int(entry["requires_corruption_below"]):
+		return false
 	return true
 
 

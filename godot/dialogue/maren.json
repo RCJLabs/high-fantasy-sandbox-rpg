@@ -1,6 +1,12 @@
 {
 	"start": [
 		{
+			"node": "end_hollow",
+			"requires_corruption": 3,
+			"requires_flag": "read_letter",
+			"requires_not_flag": "demo_finished"
+		},
+		{
 			"node": "end_intro",
 			"requires_flag": "read_letter",
 			"requires_not_flag": "demo_finished"
@@ -884,6 +890,19 @@
 					"text": "Sounds like someone else's problem.",
 					"next": "end",
 					"set_flag": "refused_maren"
+				}
+			]
+		},
+		"end_hollow": {
+			"text": "She looks at your hands before your face. Then she reads the letter twice, and puts her finger on this valley, and on the eleven other marks. \"You stopped the first thing they made,\" she says. \"And you've been drinking from the same cup as them.\" She gives the map back. \"Go and find the second one. When you do, ask yourself which side of the cage you're standing on.\"",
+			"set_flag": [
+				"told_maren_end",
+				"demo_finished"
+			],
+			"choices": [
+				{
+					"text": "(Leave)",
+					"next": "end"
 				}
 			]
 		}

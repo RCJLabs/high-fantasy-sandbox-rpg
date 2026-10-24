@@ -45,6 +45,10 @@ func _ready() -> void:
 
 func wake(player: Node3D) -> void:
 	super(player)
+	# It knows its own kind (systems/corruption.gd).
+	if Corruption.tier() >= 2 and player.has_method("show_message"):
+		GameState.set_flag("first_recognised_you")
+		player.show_message("It stops. Its swollen head turns towards you, slowly, the way a dog turns to a familiar step. A sound comes out of it like wind in a hollow tree: \"...you smell like us.\"")
 	Hints.show_once("boss_first", "It leaks stolen light: when the ground starts to glow around it, a ring is coming. Jump it.")
 
 
